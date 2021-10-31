@@ -5,7 +5,10 @@
 const recipes = [
   'https://introweb.tech/assets/json/ghostCookies.json',
   'https://introweb.tech/assets/json/birthdayCake.json',
-  'https://introweb.tech/assets/json/chocolateChip.json'
+  'https://introweb.tech/assets/json/chocolateChip.json',
+  '/assets/recipes/recipes1.md',
+  '/assets/recipes/recipes2.md',
+  '/assets/recipes/recipes3.md'
 ];
 
 // Once all of the recipes that were specified above have been fetched, their
@@ -84,4 +87,26 @@ function bindShowMore() {
   // in the recipeData object where you stored them/
 
   // Part 2 Explore - TODO
+  var show_more = document.getElementById("button-wrapper");
+  var show_more_button = show_more.querySelector("button");
+  var extra_deck = [];
+  var main = document.querySelector("main");
+  for(let i = 0; i < recipes.length - 3; i++){
+    extra_deck.push(document.createElement('recipe-card'));
+    extra_deck[i].data = recipeData[recipes[i+3]];
+  }
+  show_more_button.addEventListener('click', function(){
+    if(show_more_button.textContent == "Show more"){
+      show_more_button.textContent = "Show less";
+      for(let i = 0; i < recipes.length - 3; i++){
+        main.appendChild(extra_deck[i]);
+      }
+    }
+    else{
+      show_more_button.textContent = "Show more";
+      for(let i = 0; i < recipes.length - 3; i++){
+        main.removeChild(extra_deck[i]);
+      }
+    }
+  });
 }
