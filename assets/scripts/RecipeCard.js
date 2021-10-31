@@ -132,7 +132,7 @@ class RecipeCard extends HTMLElement {
       span1.textContent = "No Review";
     }
     else{
-      img2.setAttribute("src", "../assets/images/icons/" + Math.round(rating) +"-star.svg");
+      img2.setAttribute("src", "/assets/images/icons/" + Math.round(rating) +"-star.svg");
       img2.setAttribute("alt", Math.round(rating) + " stars");
       span1.textContent = rating;
       span2.textContent = "(" + searchForKey(data, "ratingCount") + ")";
