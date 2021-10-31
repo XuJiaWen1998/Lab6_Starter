@@ -6,9 +6,9 @@ const recipes = [
   'https://introweb.tech/assets/json/ghostCookies.json',
   'https://introweb.tech/assets/json/birthdayCake.json',
   'https://introweb.tech/assets/json/chocolateChip.json',
-  '/assets/recipes/recipes1.md',
-  '/assets/recipes/recipes2.md',
-  '/assets/recipes/recipes3.md'
+  '../assets/recipes/recipes1.md',
+  '../assets/recipes/recipes2.md',
+  '../assets/recipes/recipes3.md'
 ];
 
 // Once all of the recipes that were specified above have been fetched, their
