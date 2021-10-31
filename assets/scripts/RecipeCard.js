@@ -1,8 +1,10 @@
 class RecipeCard extends HTMLElement {
   constructor() {
     // Part 1 Expose - TODO
-
+    super();
     // You'll want to attach the shadow DOM here
+    this.attachShadow({mode: 'open'});
+
   }
 
   set data(data) {
@@ -40,7 +42,7 @@ class RecipeCard extends HTMLElement {
         column-gap: 5px;
         display: flex;
       }
-      
+
       div.rating > img {
         height: auto;
         display: inline-block;
@@ -84,10 +86,10 @@ class RecipeCard extends HTMLElement {
       }
     `;
     styleElem.innerHTML = styles;
-
+    
     // Here's the root element that you'll want to attach all of your other elements to
     const card = document.createElement('article');
-
+ 
     // Some functions that will be helpful here:
     //    document.createElement()
     //    document.querySelector()
@@ -98,7 +100,58 @@ class RecipeCard extends HTMLElement {
 
     // Make sure to attach your root element and styles to the shadow DOM you
     // created in the constructor()
+    var img1 = document.createElement('img');
+    img1.setAttribute("src", searchForKey(data, "thumbnailUrl"));
+    img1.setAttribute("alt", "headline");
+    
+    var p1 = document.createElement('p');
+    p1.setAttribute("class", "title");
+    
+    var p2 = document.createElement('p');
+    p2.className = "organization";
+    p2.textContent = getOrganization(data);
 
+    var p3 = document.createElement('p');
+    p3.setAttribute("class", "ingredients");
+    p3.textContent = createIngredientList(searchForKey(data, "recipeIngredient"));
+    
+    var time = document.createElement('time');
+    time.textContent = convertTime(searchForKey(data, "totalTime"));
+    
+    var a = document.createElement('a');
+    a.setAttribute("href", getUrl(data));
+    a.innerText = searchForKey(data, "headline");
+
+    var div = document.createElement('div');
+    div.setAttribute("class", "rating");
+    var span1 = document.createElement('span');
+    var span2 = document.createElement('span');
+    var img2 = document.createElement('img');
+    var rating = searchForKey(data, "ratingValue");
+    if(rating == undefined){
+      span1.textContent = "No Review";
+    }
+    else{
+      img2.setAttribute("src", "/assets/images/icons/" + Math.round(rating) +"-star.svg");
+      img2.setAttribute("alt", Math.round(rating) + " stars");
+      span1.textContent = rating;
+      span2.textContent = "(" + searchForKey(data, "ratingCount") + ")";
+    }
+
+
+
+    p1.appendChild(a);
+    card.appendChild(img1);
+    card.appendChild(p1);
+    card.appendChild(p2);
+    div.appendChild(span1);
+    div.appendChild(img2);
+    div.appendChild(span2);
+    card.appendChild(div);
+    card.appendChild(time);
+    card.appendChild(p3);
+    this.shadowRoot.appendChild(styleElem);
+    this.shadowRoot.appendChild(card);
     // Part 1 Expose - TODO
   }
 }
